@@ -5,13 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.css" type="text/css" />
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js" type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js" type="text/javascript"></script>
   </head>
   <body>
+    <script type="text/javascript">
+      function checkLoginState() {
+        FB.getLoginStatus(changeLoginState);
+      }
+
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '904320642985464',
+          cookie     : true,
+          xfbml      : true,
+          version    : 'v2.5'
+        });
+
+        function changeLoginState(response) {
+          if (response.status === 'connected') {
+            FB.api('/me/picture?height=10000', function(response) {
+              document.getElementById('picture').src = response.data.url;
+            });
+            document.getElementById('status').innerHTML = 'Logged in!';
+          } else if (response.status === 'not_authorized') {
+            document.getElementById('status').innerHTML = 'Logged in to FB, not app.';
+          } else {
+            document.getElementById('status').innerHTML = 'Not logged into FB.';
+          }
+        }
+
+        FB.getLoginStatus(changeLoginState);
+      };
+
+      (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+          return;
+        }
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
     <div class="container">
       <h1>Trumpify Yourself</h1>
-      <form action="/file-upload"
-        class="dropzone"
-        id="image-upload"></form>
+      <div class="row">
+        <div class="col-md-4">
+          <img id="picture" src="http://placehold.it/300x300" alt="Profile Picture">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <form action="/trumpify"
+            class="dropzone"
+            id="image-upload"></form>
+        </div>
+        <div class="col-md-6">
+          <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+          <p id="status">Status</p>
+        </div>
+      </div>
       <hr />
       <div
         class="fb-like"
@@ -20,9 +75,5 @@
         data-show-faces="true">
       </div>
     </div>
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js" type="text/javascript"></script>
-    <script src="static/js/facebook.js" type="text/javascript"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js" type="text/javascript"></script>
   </body>
 </html>
