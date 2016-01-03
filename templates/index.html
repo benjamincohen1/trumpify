@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 
+{% block css %}
+{{ super() }}
+<link rel="stylesheet" href="https://cdn.rawgit.com/jaysalvat/ezdz/master/dist/jquery.ezdz.min.css" />
+{% endblock %}
+
 {% block scripts %}
 {{ super() }}
+<script src="https://cdn.rawgit.com/jaysalvat/ezdz/master/dist/jquery.ezdz.min.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
 <script type="text/javascript">
   window.fbAsyncInit = function() {
     function checkLoginState() {
@@ -18,7 +25,8 @@
     function changeLoginState(response) {
       if (response.status === 'connected') {
         FB.api('/me/picture?height=10000', function(response) {
-          document.getElementById('before').src = response.data.url;
+          console.log(response);
+          $('[type="file"]').ezdz('preview', response.data.url);
         });
         document.getElementById('status').innerHTML = 'Logged in!';
       } else if (response.status === 'not_authorized') {
@@ -40,6 +48,10 @@
     js.src = "https://connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
+
+  $(document).ready(function() {
+    $('input[type="file"]').ezdz();
+  })
 </script>
 {% endblock %}
 
@@ -60,7 +72,11 @@
       <td>After</td>
     </tr>
     <tr valign=center>
-      <td><img id="before" src="http://placehold.it/200x300" alt="Profile Picture"></td>
+      <td>
+        <form class="dropzone" class=col-md-6" action="/upload" id="image-upload" method="POST">
+          <input type="file" name="file" />
+        </form>
+      </td>
       <td class=a>+</td>
       <td><img src="static/hair.png" id="hair" width="150" /></td>
       <td class=a>=</td>
@@ -73,10 +89,6 @@
     </tr>
   </table>
   <div class="row">
-      <form action="/upload" id="image-upload" enctype="multipart/form-data" method="POST">
-        <input name="file" type="file"/>
-        <input type="submit"/>
-      </form>
     <div class="col-md-6">
       <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
       <p id="status">Status</p>
