@@ -1,3 +1,5 @@
+@import url(fonz.css);
+
 body {
 width: 800px;
 margin: auto;
@@ -7,6 +9,10 @@ font-family: 'Averia Serif Libre';
 h1 {
 text-transform: uppercase;
 font-size: 2.4em;
+letter-spacing: 2px;
+}
+h1 > span {
+position: relative;
 }
 .a {
 font-size: 3em;
@@ -14,4 +20,22 @@ font-size: 3em;
 #before, #after {
 height: 300px;
 }
+#dank {
+height: 40px;
+position: absolute;
+top: -0.5em;
+left: -0.25em;
+}
+
+.hero_message {zoom: 0.5; padding: 40px; width: 800px; height: 244px;
+background: black url(hero_message_bg.png) 50% 50% no-repeat; margin: auto; text-transform: uppercase; }
+.hero_message h2 {
+/* font-family: 'Montserrat', sans-serif; */
+font-size: 40px; letter-spacing: .2em; color: #fff; line-height: 50px;
+margin:0;padding:20px 0 0;
+}
+.hero_message h2 span {
+/* font-family: 'Old Standard TT', serif; */
+/* font-weight: 400; */
+font-size: 60px; display: block; padding: 25px 0;letter-spacing: -2px;}
 
