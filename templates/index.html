@@ -22,7 +22,6 @@
       version    : 'v2.5'
     });
 
-
     function changeLoginState(response) {
       if (response.status === 'connected') {
         FB.api('/me/picture?height=10000', function(response) {

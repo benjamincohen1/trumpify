@@ -62,8 +62,8 @@ def overlay_alpha_png(rgba_image, rgba_overlay, face_rect):
 
 
 def trumpify(filename):
-	inp = filename
-	
+	# inp = filename
+	inp = 'jamo.png'
 	original = Image.open(inp).convert('RGBA')
 	rects = face_rects(inp)
 	for overlay_fname in ['hair.png']:
@@ -81,3 +81,6 @@ def trumpify(filename):
 	print hashval
 	original.save('outs/' + str(hashval) + '.png')
 	return str(hashval) + '.png'
+
+if __name__ == '__main__':
+	trumpify()
