@@ -46,7 +46,15 @@ $(document).ready(function() {
       method: $(this).attr('method'),
       url: $(this).attr('action'),
       success: function(responseText, statusText, xhr, $form) {
-        $('#after').attr('src', responseText)
+        $('#after').attr('src', responseText);
+        var href = window.location.href;
+        var url = href.substring(0, href.length - 1) + responseText;
+        var link = $('<a>', {
+          href: url,
+          text: url,
+          title: 'Image',
+        }).appendTo('#output-url');
+        $('#output').show();
       },
     });
 
