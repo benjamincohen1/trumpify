@@ -38,7 +38,9 @@ window.fbAsyncInit = function() {
 }(document, 'script', 'facebook-jssdk'));
 
 $(document).ready(function() {
-  $('input[type="file"]').ezdz();
+  $('input[type="file"]').ezdz({
+    text: 'drop or click'
+  });
 
   $('#image-upload').submit(function(e) {
     e.preventDefault();
@@ -53,7 +55,7 @@ $(document).ready(function() {
           href: url,
           text: url,
           title: 'Image',
-        })
+        });
         $('#output-url').html(link);
         $('#output').show();
       },
