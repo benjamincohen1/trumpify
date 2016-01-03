@@ -30,9 +30,7 @@
     </tr>
     <tr valign=center>
       <td>
-
         <form class="dropzone" class="col-md-6" action="/upload" id="image-upload" method="POST">
-
           <input type="file" name="file" />
           <input type="hidden" name="fb_url" />
           <input type="submit" />
@@ -45,7 +43,10 @@
     </tr>
     <tr>
       <td colspan="4"></td>
-      <td id="output" style="display: none;">Too chicken to change your photo? 🐔<br />Share this url: <span id="output-url"></span></td>
+      <td id="output" style="display: none;">
+        Too chicken to change your photo? 🐔<br />Share this url: <span id="output-url"></span>
+        <button id="fb-share">Share to Facebook</button>
+      </td>
     </tr>
   </table>
   <div class="row">

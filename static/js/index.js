@@ -42,6 +42,16 @@ $(document).ready(function() {
     text: 'drop or click'
   });
 
+  $('#fb-share').click(function() {
+    var url = $('#fb-share').attr('data-url');
+
+    FB.api('/me/photos', 'post', {
+      url: url,
+    }, function(response) {
+      console.log(response);
+    });
+  });
+
   $('#image-upload').submit(function(e) {
     e.preventDefault();
     $(this).ajaxSubmit({
@@ -57,6 +67,7 @@ $(document).ready(function() {
           title: 'Image',
         });
         $('#output-url').html(link);
+        $('#fb-share').attr('data-url', url);
         $('#output').show();
       },
     });
