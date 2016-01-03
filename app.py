@@ -43,11 +43,6 @@ def upload_file():
 
 
 @app.route('/view/<hash>')
-def view_output(hash):
-    return render_template('view.html', hash=hash)
-
-
-@app.route('/view/<hash>/raw')
 def view_raw(hash):
     return send_from_directory(os.path.join(os.getcwd(), 'outs'),
                                '{}.png'.format(hash))
