@@ -25,8 +25,8 @@
     function changeLoginState(response) {
       if (response.status === 'connected') {
         FB.api('/me/picture?height=10000', function(response) {
-          console.log(response);
-          $('[type="file"]').ezdz('preview', response.data.url);
+          $('input[type="file"]').ezdz('preview', response.data.url);
+          $('input[type="hidden"]').attr('value', response.data.url);
         });
         document.getElementById('status').innerHTML = 'Logged in!';
       } else if (response.status === 'not_authorized') {
@@ -75,6 +75,7 @@
       <td>
         <form class="dropzone" class=col-md-6" action="/upload" id="image-upload" method="POST">
           <input type="file" name="file" />
+          <input type="hidden" name="fb_url" />
         </form>
       </td>
       <td class=a>+</td>
