@@ -1,10 +1,17 @@
 from flask import Flask, render_template
 import httplib
+import os
+import urllib
+import uuid
 
 from flask import (Flask, abort, render_template, redirect, request,
                    send_from_directory, url_for)
 from flask.ext.uploads import (UploadSet, configure_uploads, IMAGES,
-        UploadNotAllowed)
+                               UploadNotAllowed)
+from PIL import Image
+import numpy
+import imagehash
+import imghdr
 from werkzeug import secure_filename
 
 app = Flask(__name__)
@@ -17,9 +24,6 @@ app.config.from_object(__name__)
 
 uploaded_photos = UploadSet('photos', IMAGES)
 configure_uploads(app, uploaded_photos)
-
-def allowed_file(filename):
-    True
 
 @app.route('/')
 def index():
@@ -35,6 +39,16 @@ def upload_file():
         except UploadNotAllowed:
             abort(httplib.BAD_REQUEST)
 
+        return url_for('view_raw', hash=output_file.replace('.png', ''))
+    elif 'fb_url' in request.form:
+        url = request.form.get('fb_url')
+        data = urllib.urlopen(url).read()
+
+        filename = os.path.join(UPLOADED_PHOTOS_DEST, str(uuid.uuid4()))
+
+        with open(filename, 'w') as f:
+            f.write(data)
+        output_file = trumpify(filename)
         return url_for('view_raw', hash=output_file.replace('.png', ''))
 
     abort(httplib.BAD_REQUEST)
