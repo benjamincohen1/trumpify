@@ -37,8 +37,7 @@ def upload_file():
         except UploadNotAllowed:
             abort(httplib.BAD_REQUEST)
 
-        return redirect(url_for('view_output',
-                                hash=output_file.replace('.png', '')))
+        return url_for('view_raw', hash=output_file.replace('.png', ''))
 
     abort(httplib.BAD_REQUEST)
 
