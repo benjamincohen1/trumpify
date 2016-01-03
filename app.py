@@ -14,6 +14,8 @@ import imagehash
 import imghdr
 from werkzeug import secure_filename
 
+from trump import trumpify
+
 app = Flask(__name__)
 
 UPLOADED_PHOTOS_DEST = '/tmp/photos'
