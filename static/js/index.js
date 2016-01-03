@@ -48,7 +48,8 @@ $(document).ready(function() {
     FB.api('/me/photos', 'post', {
       url: url,
     }, function(response) {
-      console.log(response);
+      $('#fb-share').text('Submitted!');
+      $('#fb-share').prop('disabled', true);
     });
   });
 
