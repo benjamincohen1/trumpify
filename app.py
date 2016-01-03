@@ -1,13 +1,11 @@
-import base64
+from flask import Flask, render_template
 import httplib
-import os
 
 from flask import (Flask, abort, render_template, redirect, request,
                    send_from_directory, url_for)
 from flask.ext.uploads import (UploadSet, configure_uploads, IMAGES,
-                               UploadNotAllowed)
-
-from trump import trumpify
+        UploadNotAllowed)
+from werkzeug import secure_filename
 
 app = Flask(__name__)
 
@@ -20,15 +18,15 @@ app.config.from_object(__name__)
 uploaded_photos = UploadSet('photos', IMAGES)
 configure_uploads(app, uploaded_photos)
 
+def allowed_file(filename):
+    True
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    print(request.files)
     if 'file' in request.files:
         try:
             filename = uploaded_photos.save(request.files.get('file'))
