@@ -62,25 +62,25 @@ def overlay_alpha_png(rgba_image, rgba_overlay, face_rect):
 
 
 def trumpify(filename):
-	# inp = filename
-	inp = 'jamo.png'
+	inp = filename
 	original = Image.open(inp).convert('RGBA')
 	rects = face_rects(inp)
+	width, height = original.size
 	for overlay_fname in ['hair.png']:
 		overlay = Image.open(overlay_fname).convert('RGBA')
 		for rect in rects:
 			original = overlay_alpha_png(original, overlay, rect)
 
-
+	overlay_alpha_png(original, Image.open('logo.png').convert('RGBA'), (width - 225,height - 50,200,100))
 	width, height = original.size
 
 
-	draw = ImageDraw.Draw(original)
-	draw.text((0, height - 50), "Made with love at trumpifyme.me", font=font, fill='rgb(255, 255, 255)')
+	# draw = ImageDraw.Draw(original)
+	# draw.text((0, height - 50), "Made with love at trumpifyme.me", font=font, fill='rgb(0, 0, 255)')
 	hashval = imagehash.average_hash(original)
 	print hashval
 	original.save('outs/' + str(hashval) + '.png')
 	return str(hashval) + '.png'
 
 if __name__ == '__main__':
-	trumpify()
+	trumpify('../jamo.jpg')
