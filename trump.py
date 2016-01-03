@@ -71,7 +71,7 @@ def trumpify(filename):
 		for rect in rects:
 			original = overlay_alpha_png(original, overlay, rect)
 
-	overlay_alpha_png(original, Image.open('logo.png').convert('RGBA'), (width - 225,height - 50,200,100))
+	#overlay_alpha_png(original, Image.open('logo.png').convert('RGBA'), (width - 225,height - 50,200,100))
 	width, height = original.size
 
 
