@@ -1,14 +1,11 @@
-import sys, os, cv, Image, argparse
-import scipy as sp
-import Image
-import ImageDraw
-import ImageFont
-import imagehash
-from flask import Flask, request, session, g, redirect, url_for, \
-     abort, render_template, flash
+import argparse
+import os
+import sys
 
-app = Flask(__name__)
-app.config.from_object(__name__)
+import cv
+import scipy as sp
+import imagehash
+from PIL import Image, ImageDraw, ImageFont
 
 
 font_fname = 'font.ttf'
@@ -62,9 +59,10 @@ def overlay_alpha_png(rgba_image, rgba_overlay, face_rect):
 	rgba_image.paste(rgba_overlay, box, rgba_overlay)
 
 	return rgba_image
-@app.route('/trumpify', methods=['POST'])
-def trumpify():
-	inp = 'originals/' + request.form['filename']
+
+
+def trumpify(filename):
+	inp = filename
 	
 	original = Image.open(inp).convert('RGBA')
 	rects = face_rects(inp)
@@ -83,9 +81,3 @@ def trumpify():
 	print hashval
 	original.save('outs/' + str(hashval) + '.png')
 	return str(hashval) + '.png'
-
-
-
-if __name__ == "__main__":
-	trumpify()
-	# app.run(host="0.0.0.0")
