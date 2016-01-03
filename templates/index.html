@@ -3,11 +3,11 @@
 {% block scripts %}
 {{ super() }}
 <script type="text/javascript">
-  function checkLoginState() {
-    FB.getLoginStatus(changeLoginState);
-  }
-
   window.fbAsyncInit = function() {
+    function checkLoginState() {
+      FB.getLoginStatus(changeLoginState);
+    }
+
     FB.init({
       appId      : '904320642985464',
       cookie     : true,

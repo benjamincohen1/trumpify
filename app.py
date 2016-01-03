@@ -2,7 +2,8 @@ import base64
 import httplib
 import os
 
-from flask import Flask, abort, render_template, redirect, request, url_for
+from flask import (Flask, abort, render_template, redirect, request,
+                   send_from_directory, url_for)
 from flask.ext.uploads import (UploadSet, configure_uploads, IMAGES,
                                UploadNotAllowed)
 
@@ -10,7 +11,6 @@ from trump import trumpify
 
 app = Flask(__name__)
 
-DATABASE = '/var/db/photos.db'
 UPLOADED_PHOTOS_DEST = '/tmp/photos'
 
 app = Flask(__name__)
@@ -34,7 +34,6 @@ def upload_file():
             filename = uploaded_photos.save(request.files.get('file'))
             filename = os.path.join(UPLOADED_PHOTOS_DEST, filename)
             output_file = trumpify(filename)
-            print(output_file)
         except UploadNotAllowed:
             abort(httplib.BAD_REQUEST)
 
@@ -46,10 +45,13 @@ def upload_file():
 
 @app.route('/view/<hash>')
 def view_output(hash):
-    with open(os.path.join('outs', hash + '.png')) as f:
-        image_data = base64.b64encode(f.read())
+    return render_template('view.html', hash=hash)
 
-    return render_template('view.html', image_data=image_data)
+
+@app.route('/view/<hash>/raw')
+def view_raw(hash):
+    return send_from_directory(os.path.join(os.getcwd(), 'outs'),
+                               '{}.png'.format(hash))
 
 
 if __name__ == '__main__':
