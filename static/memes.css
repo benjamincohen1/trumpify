@@ -1,0 +1,17 @@
+body {
+width: 800px;
+margin: auto;
+text-align: center;
+font-family: 'Averia Serif Libre';
+}
+h1 {
+text-transform: uppercase;
+font-size: 2.4em;
+}
+.a {
+font-size: 3em;
+}
+#before, #after {
+height: 300px;
+}
+

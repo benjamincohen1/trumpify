@@ -18,7 +18,7 @@
     function changeLoginState(response) {
       if (response.status === 'connected') {
         FB.api('/me/picture?height=10000', function(response) {
-          document.getElementById('picture').src = response.data.url;
+          document.getElementById('before').src = response.data.url;
         });
         document.getElementById('status').innerHTML = 'Logged in!';
       } else if (response.status === 'not_authorized') {
@@ -46,18 +46,28 @@
 {% block content %}
 <div class="container">
   <h1>Trumpify Yourself</h1>
+  <h2>Make your profile <em>unstumpable!</em></h2>
+  <table border=0 width="100%">
+    <tr>
+      <td>Drag your selfie here<br />or log into facebook below</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>After</td>
+    </tr>
+    <tr valign=center>
+      <td><img id="before" src="http://placehold.it/200x300" alt="Profile Picture"></td>
+      <td class=a>+</td>
+      <td><img src="static/hair.png" id="hair" width="150" /></td>
+      <td class=a>=</td>
+      <td><img id="after" src="http://placehold.it/200x300" alt="Trumpified"></td>
+    </tr>
+  </table>
   <div class="row">
-    <div class="col-md-4">
-      <img id="picture" src="http://placehold.it/300x300" alt="Profile Picture">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
       <form action="/upload" id="image-upload" enctype="multipart/form-data" method="POST">
         <input name="file" type="file"/>
         <input type="submit"/>
       </form>
-    </div>
     <div class="col-md-6">
       <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
       <p id="status">Status</p>
