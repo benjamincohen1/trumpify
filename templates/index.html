@@ -22,6 +22,7 @@
       version    : 'v2.5'
     });
 
+
     function changeLoginState(response) {
       if (response.status === 'connected') {
         FB.api('/me/picture?height=10000', function(response) {
@@ -73,7 +74,7 @@
     </tr>
     <tr valign=center>
       <td>
-        <form class="dropzone" class=col-md-6" action="/upload" id="image-upload" method="POST">
+        <form class="dropzone" class="col-md-6" action="/upload" id="image-upload" method="POST">
           <input type="file" name="file" />
         </form>
       </td>

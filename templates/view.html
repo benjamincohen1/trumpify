@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 
 {% block scripts %}
@@ -49,3 +50,4 @@
 <img id="image" src="{{ url_for('view_raw', hash=hash) }}">
 <fb:login-button scope="public_profile,email,publish_actions" onlogin="checkLoginState();">Make Profile Picture</fb:login-button>
 {% endblock %}
+
