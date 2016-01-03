@@ -75,12 +75,11 @@ def trumpify(filename):
 	width, height = original.size
 
 
-	# draw = ImageDraw.Draw(original)
-	# draw.text((0, height - 50), "Made with love at trumpifyme.me", font=font, fill='rgb(0, 0, 255)')
 	hashval = imagehash.average_hash(original)
 	print hashval
 	original.save('outs/' + str(hashval) + '.png')
 	return str(hashval) + '.png'
+
 
 if __name__ == '__main__':
 	trumpify('../jamo.jpg')
