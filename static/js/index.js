@@ -53,7 +53,8 @@ $(document).ready(function() {
           href: url,
           text: url,
           title: 'Image',
-        }).appendTo('#output-url');
+        })
+        $('#output-url').html(link);
         $('#output').show();
       },
     });
